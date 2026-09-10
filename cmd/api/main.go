@@ -40,9 +40,10 @@ func main() {
 		Router: chi.NewMux(),
 	}
 
+	api.BindRoutes()
+
 	fmt.Println("Server is running on :3080")
 	if err := http.ListenAndServe("localhost:3080", api.Router); err != nil {
 		panic(err)
 	}
-
 }

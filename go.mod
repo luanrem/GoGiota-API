@@ -3,7 +3,6 @@ module github.com/luanrem/GoGiota-API
 go 1.25.1
 
 require (
-	github.com/go-chi/chi v1.5.5
 	github.com/go-chi/chi/v5 v5.3.2
 	github.com/jackc/pgx/v5 v5.11.0
 	github.com/joho/godotenv v1.5.1
