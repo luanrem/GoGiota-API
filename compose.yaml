@@ -1,0 +1,21 @@
+services:
+  db:
+    image: postgres:18
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${GOGIOTA_DATABASE_USER:-postgres}
+      POSTGRES_PASSWORD: ${GOGIOTA_DATABASE_PASSWORD:-password}
+      POSTGRES_DB: ${GOGIOTA_DATABASE_NAME:-mydatabase}
+    ports:
+      - ${GOGIOTA_DATABASE_PORT:-5432}:5432
+    volumes:
+      - db_data:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${GOGIOTA_DATABASE_USER:-postgres} -d ${GOGIOTA_DATABASE_NAME:-mydatabase}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  db_data:
+    driver: local

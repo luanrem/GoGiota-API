@@ -1,0 +1,29 @@
+#:schema https://json.schemastore.org/any.json
+
+root = "."
+tmp_dir = "tmp"
+
+[build]
+  cmd = "go build -o ./tmp/api ./cmd/api"
+  entrypoint = ["./tmp/api"]
+  # Reinicia tambem quando o .env ou uma migration mudar
+  include_ext = ["go"]
+  include_file = [".env"]
+  exclude_dir = ["bin", "tmp", "vendor", "testdata"]
+  exclude_regex = ["_test.go"]
+  # Espera 1s de quietude antes de rebuildar (evita rebuild a cada Cmd+S parcial)
+  delay = 1000
+  # Nao tenta rodar o binario velho quando o build falha
+  stop_on_error = true
+  # Manda SIGINT no lugar de SIGKILL -> deixa o graceful shutdown do servidor rodar
+  send_interrupt = true
+  kill_delay = "2s"
+  log = "build-errors.log"
+
+[misc]
+  # Apaga ./tmp ao sair
+  clean_on_exit = true
+
+[screen]
+  clear_on_rebuild = true
+  keep_scroll = false

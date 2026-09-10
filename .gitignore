@@ -1,0 +1,12 @@
+# Air
+tmp/
+build-errors.log
+
+# Binarios
+bin/
+
+# Variaveis de ambiente
+.env
+
+# Claude Code
+.claude/
