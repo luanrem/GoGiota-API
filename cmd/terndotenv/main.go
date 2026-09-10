@@ -2,9 +2,15 @@ package main
 
 import (
 	"fmt"
+	"os"
 	"os/exec"
 
 	"github.com/joho/godotenv"
+)
+
+const (
+	migrationsPath = "./internal/store/pgstore/migrations"
+	configPath     = "./internal/store/pgstore/migrations/tern.conf"
 )
 
 func main() {
@@ -12,13 +18,17 @@ func main() {
 		panic(err)
 	}
 
+	args := []string{
+		"migrate",
+		"--migrations", migrationsPath,
+		"--config", configPath,
+	}
+
+	args = append(args, os.Args[1:]...) // <-- repassa o que digitar depois de chamar o script
+
 	cmd := exec.Command(
 		"tern",
-		"migrate",
-		"--migrations",
-		"./internal/store/pgstore/migrations",
-		"--config",
-		"./internal/store/pgstore/migrations/tern.conf",
+		args...,
 	)
 
 	output, err := cmd.CombinedOutput()
