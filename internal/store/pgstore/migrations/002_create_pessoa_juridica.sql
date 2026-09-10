@@ -1,7 +1,7 @@
 -- Write your migrate up statements here
 
 create table pessoa_juridica (
-  id                integer       generated always as identity primary key,
+  id                integer       primary key default nextval('conta_id_seq'),
   faturamento       numeric(15,2) not null,
   idade             integer       not null,
   nome_fantasia     varchar(255)  not null,

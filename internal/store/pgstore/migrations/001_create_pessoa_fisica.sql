@@ -1,7 +1,9 @@
 -- Write your migrate up statements here
 
+create sequence conta_id_seq as integer;
+
 create table pessoa_fisica (
-  id            integer       generated always as identity primary key,
+  id            integer       primary key default nextval('conta_id_seq'),
   renda_mensal  numeric(15,2) not null,
   idade         integer       not null,
   nome_completo varchar(255)  not null,
@@ -18,3 +20,4 @@ create table pessoa_fisica (
 ---- create above / drop below ----
 
 drop table pessoa_fisica;
+drop sequence conta_id_seq;
