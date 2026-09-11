@@ -9,6 +9,7 @@ import (
 	"github.com/go-chi/chi/v5"
 	"github.com/jackc/pgx/v5/pgxpool"
 	"github.com/luanrem/GoGiota-API/internal/api"
+	"github.com/luanrem/GoGiota-API/internal/services"
 
 	"github.com/joho/godotenv"
 )
@@ -37,7 +38,8 @@ func main() {
 	}
 
 	api := api.Api{
-		Router: chi.NewMux(),
+		Router:       chi.NewMux(),
+		ContaService: services.NewContaService(pool),
 	}
 
 	api.BindRoutes()
